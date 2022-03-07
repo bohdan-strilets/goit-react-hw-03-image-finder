@@ -1,9 +1,4 @@
 .section {
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  width: 100%;
   padding: 50px 10px 50px 10px;
 
   background-image: var(--linear-gradient);

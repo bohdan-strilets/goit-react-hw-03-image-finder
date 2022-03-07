@@ -4,7 +4,7 @@ const FILTER = '&image_type=photo&orientation=horizontal&per_page=12';
 
 function fetchImages(searchQuery, page) {
   return fetch(`${URL}?q=${searchQuery}&page=${page}&key=${KEY}${FILTER}`).then(
-    data => data.json()
+    response => response.json()
   );
 }
 

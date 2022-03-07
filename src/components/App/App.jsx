@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import css from './App.module.css';
 import Searchbar from './Searchbar';
 import ImageGallery from './ImageGallery';
 
@@ -16,11 +17,18 @@ class App extends Component {
   render() {
     const { searchQuery } = this.state;
     return (
-      <div>
-        <Searchbar onSubmit={this.getSearchRequest} />
-        <ImageGallery searchQuery={searchQuery} />
+      <>
+        <div className={css.section}>
+          <div className={css.container}>
+            <Searchbar onSubmit={this.getSearchRequest} />
+          </div>
+        </div>
+
+        <div className={css.container}>
+          <ImageGallery searchQuery={searchQuery} />
+        </div>
         <ToastContainer />
-      </div>
+      </>
     );
   }
 }

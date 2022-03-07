@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { toast } from 'react-toastify';
+import { FaSearch } from 'react-icons/fa';
 import css from './Searchbar.module.css';
 
 class Searchbar extends Component {
@@ -29,10 +30,12 @@ class Searchbar extends Component {
   render() {
     const { searchQuery } = this.state;
     return (
-      <header className={css.searchbar}>
+      <header className={css.header}>
         <form className={css.form} onSubmit={this.handleSubmit}>
           <button type="submit" className={css.button}>
-            <span className="button-label">Search</span>
+            <span className={css.button__label}>
+              <FaSearch size={12} />
+            </span>
           </button>
 
           <input

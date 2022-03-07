@@ -3,12 +3,15 @@ import css from './ImageGallery.module.css';
 import fetchImages from 'components/services/images-api';
 import ImageGalleryItem from 'components/App/ImageGalleryItem';
 import Loader from 'components/App/Loader';
+import Button from 'components/App/Button';
 import StartPage from './StartPage';
 
 class ImageGallery extends Component {
   state = {
     images: null,
     page: 1,
+    imagesOnPage: 0,
+    totalHits: 0,
     error: null,
     status: 'idle',
   };
@@ -16,26 +19,45 @@ class ImageGallery extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { page } = this.state;
     const { searchQuery } = this.props;
-    const prevQuery = prevProps.searchQuery;
-    const nextQuery = this.props.searchQuery;
 
-    if (prevQuery !== nextQuery) {
-      this.setState({ status: 'pending' });
+    if (prevProps.searchQuery !== searchQuery) {
+      this.setState({ page: 1, status: 'pending' });
 
       fetchImages(searchQuery, page)
-        .then(({ hits }) => {
+        .then(({ hits, totalHits }) => {
           if (hits.length > 1) {
-            return this.setState({ images: hits, status: 'resolved' });
+            return this.setState({
+              images: hits,
+              imagesOnPage: hits.length,
+              totalHits: totalHits,
+              status: 'resolved',
+            });
           } else {
             return this.setState({ status: 'idle' });
           }
         })
         .catch(error => this.setState({ error, status: 'rejected' }));
     }
+
+    if (prevState.page !== page) {
+      fetchImages(prevProps.searchQuery, page).then(({ hits }) =>
+        this.setState(({ images, imagesOnPage }) => {
+          return {
+            images: [...images, ...hits],
+            imagesOnPage: imagesOnPage + hits.length,
+            status: 'resolved',
+          };
+        })
+      );
+    }
   }
 
+  handleNextFetch = () => {
+    this.setState(({ page }) => ({ page: page + 1 }));
+  };
+
   render() {
-    const { images, status, error } = this.state;
+    const { images, status, error, imagesOnPage, totalHits } = this.state;
 
     if (status === 'idle') {
       return <StartPage text="Write what you want to find." />;
@@ -51,16 +73,21 @@ class ImageGallery extends Component {
 
     if (status === 'resolved') {
       return (
-        <ul className={css.gallery}>
-          {images.map(({ id, webformatURL, largeImageURL, tags }) => (
-            <ImageGalleryItem
-              key={id}
-              smallImage={webformatURL}
-              largeImage={largeImageURL}
-              description={tags}
-            />
-          ))}
-        </ul>
+        <>
+          <ul className={css.gallery}>
+            {images.map(({ webformatURL, largeImageURL, tags }, index) => (
+              <ImageGalleryItem
+                key={index}
+                smallImage={webformatURL}
+                largeImage={largeImageURL}
+                description={tags}
+              />
+            ))}
+          </ul>
+          {imagesOnPage >= 12 && imagesOnPage < totalHits && (
+            <Button text="Load more" handleNextFetch={this.handleNextFetch} />
+          )}
+        </>
       );
     }
   }

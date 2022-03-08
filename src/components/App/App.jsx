@@ -5,6 +5,7 @@ import Container from './Container';
 import css from './App.module.css';
 import Searchbar from './Searchbar';
 import ImageGallery from './ImageGallery';
+import Footer from './Footer';
 
 class App extends Component {
   state = {
@@ -30,11 +31,14 @@ class App extends Component {
         </div>
         <ToastContainer /> */}
 
-        <Container styleClass={css.section__bg}>
+        <Container styleClass={css.section__header}>
           <Searchbar onSubmit={this.getSearchRequest} />
         </Container>
         <Container>
           <ImageGallery searchQuery={searchQuery} />
+        </Container>
+        <Container styleClass={css.section__footer}>
+          <Footer />
         </Container>
         <ToastContainer />
       </>

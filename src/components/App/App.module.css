@@ -1,4 +1,8 @@
-.section__bg {
+.section__header {
   background-image: var(--linear-gradient);
   box-shadow: var(--box-shadow);
+}
+
+.section__footer {
+  background-color: var(--second-bg-color);
 }

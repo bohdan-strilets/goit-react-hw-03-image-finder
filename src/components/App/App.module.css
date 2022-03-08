@@ -1,11 +1,4 @@
-.section {
-  padding: 50px 10px 50px 10px;
-
+.section__bg {
   background-image: var(--linear-gradient);
   box-shadow: var(--box-shadow);
-}
-
-.container {
-  width: 1440px;
-  margin: 0 auto;
 }

@@ -1,0 +1,12 @@
+.section {
+  padding: 50px 10px 50px 10px;
+}
+
+.container {
+  width: 1440px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 30px;
+}

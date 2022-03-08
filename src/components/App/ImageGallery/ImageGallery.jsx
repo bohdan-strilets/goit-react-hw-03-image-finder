@@ -2,9 +2,10 @@ import { Component } from 'react';
 import css from './ImageGallery.module.css';
 import fetchImages from 'components/services/images-api';
 import ImageGalleryItem from 'components/App/ImageGalleryItem';
-import Loader from 'components/App/Loader';
+import Loader from 'components/App/ImageGallery/Loader';
 import Button from 'components/App/Button';
 import StartPage from './StartPage';
+import ErrorPage from './ErrorPage';
 
 class ImageGallery extends Component {
   state = {

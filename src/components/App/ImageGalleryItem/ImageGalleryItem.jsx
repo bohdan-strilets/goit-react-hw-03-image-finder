@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import css from './ImageGalleryItem.module.css';
 
 function ImageGalleryItem({ smallImage, largeImage, description, openModal }) {
@@ -7,5 +8,12 @@ function ImageGalleryItem({ smallImage, largeImage, description, openModal }) {
     </li>
   );
 }
+
+ImageGalleryItem.prototype = {
+  smallImage: PropTypes.string.isRequired,
+  largeImage: PropTypes.string,
+  description: PropTypes.string,
+  openModal: PropTypes.func.isRequired,
+};
 
 export default ImageGalleryItem;

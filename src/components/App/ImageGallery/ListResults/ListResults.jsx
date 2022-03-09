@@ -1,9 +1,20 @@
+import PropTypes from 'prop-types';
 import { Component } from 'react';
 import ImageGalleryItem from 'components/App/ImageGalleryItem';
 import Modal from 'components/App/Modal';
 import css from './ListResults.module.css';
 
 class ListResult extends Component {
+  static propTypes = {
+    images: PropTypes.arrayOf(
+      PropTypes.shape({
+        webformatURL: PropTypes.string.isRequired,
+        largeImageURL: PropTypes.string,
+        tags: PropTypes.string,
+      })
+    ),
+  };
+
   state = {
     showModal: false,
     currentImageUrl: null,

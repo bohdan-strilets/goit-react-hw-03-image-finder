@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Component } from 'react';
 import fetchImages from 'components/services/images-api';
 import Loader from 'components/App/ImageGallery/Loader';
@@ -7,6 +8,10 @@ import ErrorPage from './ErrorPage';
 import ListResult from './ListResults';
 
 class ImageGallery extends Component {
+  static propTypes = {
+    searchQuery: PropTypes.string.isRequired,
+  };
+
   state = {
     images: null,
     page: 1,

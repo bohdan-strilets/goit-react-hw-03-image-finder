@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { BiCommentError } from 'react-icons/bi';
 import css from './ErrorPage.module.css';
 
@@ -9,5 +10,9 @@ function ErrorPage({ text }) {
     </div>
   );
 }
+
+ErrorPage.prototype = {
+  text: PropTypes.string.isRequired,
+};
 
 export default ErrorPage;

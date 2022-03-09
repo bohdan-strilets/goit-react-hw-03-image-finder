@@ -25,10 +25,7 @@ class App extends Component {
           <Searchbar onSubmit={this.getSearchRequest} />
         </Container>
         <Container>
-          <ImageGallery
-            searchQuery={searchQuery}
-            getInfoFromFetch={this.getInfoFromFetch}
-          />
+          <ImageGallery searchQuery={searchQuery} />
         </Container>
         <Container styleClass={css.section__footer}>
           <Footer />

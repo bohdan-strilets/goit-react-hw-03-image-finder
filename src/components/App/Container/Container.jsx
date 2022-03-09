@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import css from './Container.module.css';
 
 function Container({ children, title, styleClass }) {
@@ -8,5 +9,11 @@ function Container({ children, title, styleClass }) {
     </div>
   );
 }
+
+Container.prototype = {
+  children: PropTypes.element,
+  title: PropTypes.string,
+  styleClass: PropTypes.any,
+};
 
 export default Container;

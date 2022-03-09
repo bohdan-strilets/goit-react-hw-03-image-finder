@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { BiImages } from 'react-icons/bi';
 import css from './StartPage.module.css';
 
@@ -9,5 +10,9 @@ function StartPage({ text }) {
     </div>
   );
 }
+
+StartPage.prototype = {
+  text: PropTypes.string,
+};
 
 export default StartPage;

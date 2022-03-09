@@ -1,0 +1,61 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-color: var(--backdrop-bg-color);
+}
+
+.modal {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 900px;
+  height: auto;
+
+  background-color: var(--main-bg-color);
+  box-shadow: var(--box-shadow);
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 30px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 30px;
+  padding: 0;
+
+  border: none;
+  border-radius: 5px;
+
+  background-color: var(--second-bg-color);
+  color: var(--second-text-color);
+
+  cursor: pointer;
+  transition: color var(--hover-animation);
+}
+
+.button:hover,
+.button:focus {
+  color: var(--accent-bg-color);
+}

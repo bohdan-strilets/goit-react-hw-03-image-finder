@@ -1,9 +1,11 @@
+import { BsFillHeartFill } from 'react-icons/bs';
+import 'animate.css';
 import css from './Footer.module.css';
 
-function Footer({ params }) {
+function Footer({ searchQuery, totalHits, page, imagesOnPage }) {
   return (
     <footer className={css.footer}>
-      <p>TEXT</p>
+      <BsFillHeartFill />
     </footer>
   );
 }

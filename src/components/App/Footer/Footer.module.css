@@ -1,3 +1,12 @@
 .footer {
-  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--second-text-color);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  color: var(--accent-bg-color);
 }

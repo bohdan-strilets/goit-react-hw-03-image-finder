@@ -1,11 +1,10 @@
 import { Component } from 'react';
-import css from './ImageGallery.module.css';
 import fetchImages from 'components/services/images-api';
-import ImageGalleryItem from 'components/App/ImageGalleryItem';
 import Loader from 'components/App/ImageGallery/Loader';
 import Button from 'components/App/Button';
 import StartPage from './StartPage';
 import ErrorPage from './ErrorPage';
+import ListResult from './ListResults';
 
 class ImageGallery extends Component {
   state = {
@@ -69,22 +68,13 @@ class ImageGallery extends Component {
     }
 
     if (status === 'rejected') {
-      return console.log(error);
+      return <ErrorPage text={error.message} />;
     }
 
     if (status === 'resolved') {
       return (
         <>
-          <ul className={css.gallery}>
-            {images.map(({ webformatURL, largeImageURL, tags }, index) => (
-              <ImageGalleryItem
-                key={index}
-                smallImage={webformatURL}
-                largeImage={largeImageURL}
-                description={tags}
-              />
-            ))}
-          </ul>
+          <ListResult images={images} />
           {imagesOnPage >= 12 && imagesOnPage < totalHits && (
             <Button text="Load more" handleNextFetch={this.handleNextFetch} />
           )}

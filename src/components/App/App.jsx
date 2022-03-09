@@ -18,24 +18,17 @@ class App extends Component {
 
   render() {
     const { searchQuery } = this.state;
+
     return (
       <>
-        {/* <div className={css.section}>
-          <div className={css.container}>
-            <Searchbar onSubmit={this.getSearchRequest} />
-          </div>
-        </div>
-
-        <div className={css.container}>
-          <ImageGallery searchQuery={searchQuery} />
-        </div>
-        <ToastContainer /> */}
-
         <Container styleClass={css.section__header}>
           <Searchbar onSubmit={this.getSearchRequest} />
         </Container>
         <Container>
-          <ImageGallery searchQuery={searchQuery} />
+          <ImageGallery
+            searchQuery={searchQuery}
+            getInfoFromFetch={this.getInfoFromFetch}
+          />
         </Container>
         <Container styleClass={css.section__footer}>
           <Footer />

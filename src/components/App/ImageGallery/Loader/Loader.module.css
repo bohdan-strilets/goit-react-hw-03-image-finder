@@ -16,7 +16,19 @@
   justify-content: center;
 
   width: 100%;
-  height: 600px;
+  height: 300px;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapper {
+    height: 400px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .wrapper {
+    height: 600px;
+  }
 }
 
 .loader {

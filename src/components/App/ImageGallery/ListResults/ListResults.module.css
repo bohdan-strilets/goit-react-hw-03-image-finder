@@ -1,5 +1,17 @@
 .gallery {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -15px;
+  width: 300px;
+}
+
+@media screen and (min-width: 768px) {
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    width: 768px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .gallery {
+    width: 1440px;
+  }
 }

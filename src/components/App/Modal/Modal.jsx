@@ -34,7 +34,7 @@ class Modal extends Component {
           <div className={css.wrapper}>
             {title && <h1 className={css.title}>{title}</h1>}
             <button className={css.button} type="button" onClick={onClose}>
-              <BsXLg />
+              <BsXLg className={css.icon} />
             </button>
           </div>
           {children}

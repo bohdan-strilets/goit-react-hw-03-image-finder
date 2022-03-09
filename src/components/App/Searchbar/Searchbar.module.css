@@ -36,7 +36,7 @@
 }
 
 .input {
-  width: 700px;
+  width: 180px;
   height: 30px;
   padding: 0 10px 0 10px;
 
@@ -47,6 +47,18 @@
   border-top-right-radius: 5px;
   border: none;
   outline: none;
+}
+
+@media screen and (min-width: 768px) {
+  .input {
+    width: 500px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .input {
+    width: 700px;
+  }
 }
 
 .input:focus {

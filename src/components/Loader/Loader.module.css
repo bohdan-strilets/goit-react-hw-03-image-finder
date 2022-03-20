@@ -1,12 +1,15 @@
-.footer {
+.wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--second-text-color);
+
+  height: 100px;
+
+  color: var(--accent-bg-color);
 }
 
-.icon {
-  width: 20px;
-  height: 20px;
-  color: var(--accent-bg-color);
+.loader {
+  width: 40px;
+  height: 40px;
+  fill: currentColor;
 }

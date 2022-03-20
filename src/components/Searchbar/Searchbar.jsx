@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { FaSearch } from 'react-icons/fa';
 import css from './Searchbar.module.css';
@@ -10,37 +10,33 @@ class Searchbar extends Component {
   };
 
   state = {
-    searchQuery: '',
+    query: '',
   };
 
-  handleChange = e => {
-    this.setState({ searchQuery: e.currentTarget.value });
+  onChangeInput = e => {
+    this.setState({ query: e.currentTarget.value });
   };
 
-  handleSubmit = e => {
+  onSubmitForm = e => {
     e.preventDefault();
 
     const { onSubmit } = this.props;
-    const { searchQuery } = this.state;
+    const { query } = this.state;
 
-    if (searchQuery.trim() === '') {
+    if (query.trim() === '') {
       toast.error('Enter a search term.');
       return;
     }
 
-    onSubmit(searchQuery);
-    this.setState({ searchQuery: '' });
+    onSubmit(query);
   };
 
   render() {
-    const { searchQuery } = this.state;
     return (
       <header className={css.header}>
-        <form className={css.form} onSubmit={this.handleSubmit}>
-          <button type="submit" className={css.button}>
-            <span className={css.button__label}>
-              <FaSearch size={12} />
-            </span>
+        <form className={css.form} onSubmit={this.onSubmitForm}>
+          <button className={css.button} type="submit">
+            <FaSearch size={12} />
           </button>
 
           <input
@@ -49,9 +45,7 @@ class Searchbar extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-            name="searchQuery"
-            value={searchQuery}
-            onChange={this.handleChange}
+            onChange={this.onChangeInput}
           />
         </form>
       </header>

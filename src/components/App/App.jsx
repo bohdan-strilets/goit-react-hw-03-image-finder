@@ -1,35 +1,144 @@
 import { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Container from './Container';
-import css from './App.module.css';
-import Searchbar from './Searchbar';
-import ImageGallery from './ImageGallery';
-import Footer from './Footer';
+import fetchImages from '../../services/images-api';
+import Searchbar from 'components/Searchbar';
+import ImageGallery from 'components/ImageGallery';
+import Button from 'components/Button';
+import Loader from 'components/Loader';
+import Modal from 'components/Modal';
 
 class App extends Component {
   state = {
-    searchQuery: '',
+    query: '',
+    page: 1,
+    imagesOnPage: 0,
+    totalImages: 0,
+    isLoading: false,
+    showModal: false,
+    images: null,
+    error: null,
+    currentImageUrl: null,
+    currentImageDescription: null,
   };
 
-  getSearchRequest = searchQuery => {
-    this.setState({ searchQuery });
+  componentDidUpdate(prevProps, prevState) {
+    const { query, page } = this.state;
+
+    if (prevState.query !== query) {
+      this.setState(({ isLoading }) => ({ isLoading: !isLoading }));
+
+      fetchImages(query)
+        .then(({ hits, totalHits }) => {
+          const imagesArray = hits.map(hit => ({
+            id: hit.id,
+            description: hit.tags,
+            smallImage: hit.webformatURL,
+            largeImage: hit.largeImageURL,
+          }));
+
+          return this.setState({
+            page: 1,
+            images: imagesArray,
+            imagesOnPage: imagesArray.length,
+            totalImages: totalHits,
+          });
+        })
+        .catch(error => this.setState({ error }))
+        .finally(() =>
+          this.setState(({ isLoading }) => ({ isLoading: !isLoading }))
+        );
+    }
+
+    if (prevState.page !== page && page !== 1) {
+      this.setState(({ isLoading }) => ({ isLoading: !isLoading }));
+
+      fetchImages(query, page)
+        .then(({ hits }) => {
+          const imagesArray = hits.map(hit => ({
+            id: hit.id,
+            description: hit.tags,
+            smallImage: hit.webformatURL,
+            largeImage: hit.largeImageURL,
+          }));
+
+          return this.setState(({ images, imagesOnPage }) => {
+            return {
+              images: [...images, ...imagesArray],
+              imagesOnPage: imagesOnPage + imagesArray.length,
+            };
+          });
+        })
+        .catch(error => this.setState({ error }))
+        .finally(() =>
+          this.setState(({ isLoading }) => ({ isLoading: !isLoading }))
+        );
+    }
+  }
+
+  getSearchRequest = query => {
+    this.setState({ query });
+  };
+
+  onNextFetch = () => {
+    this.setState(({ page }) => ({ page: page + 1 }));
+  };
+
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  };
+
+  openModal = e => {
+    const currentImageUrl = e.target.dataset.large;
+    const currentImageDescription = e.target.alt;
+
+    if (e.target.nodeName === 'IMG') {
+      this.setState(({ showModal }) => ({
+        showModal: !showModal,
+        currentImageUrl: currentImageUrl,
+        currentImageDescription: currentImageDescription,
+      }));
+    }
   };
 
   render() {
-    const { searchQuery } = this.state;
+    const {
+      images,
+      imagesOnPage,
+      totalImages,
+      isLoading,
+      showModal,
+      currentImageUrl,
+      currentImageDescription,
+    } = this.state;
+
+    const getSearchRequest = this.getSearchRequest;
+    const onNextFetch = this.onNextFetch;
+    const openModal = this.openModal;
+    const toggleModal = this.toggleModal;
 
     return (
       <>
-        <Container styleClass={css.section__header}>
-          <Searchbar onSubmit={this.getSearchRequest} />
-        </Container>
-        <Container>
-          <ImageGallery searchQuery={searchQuery} />
-        </Container>
-        <Container styleClass={css.section__footer}>
-          <Footer />
-        </Container>
+        <Searchbar onSubmit={getSearchRequest} />
+
+        {images && <ImageGallery images={images} openModal={openModal} />}
+
+        {imagesOnPage >= 12 && imagesOnPage < totalImages && (
+          <Button onNextFetch={onNextFetch} />
+        )}
+
+        {isLoading && <Loader />}
+
+        {showModal && (
+          <Modal onClose={toggleModal} title={currentImageDescription}>
+            <img
+              src={currentImageUrl}
+              alt={currentImageDescription}
+              loading="lazy"
+            />
+          </Modal>
+        )}
+
         <ToastContainer />
       </>
     );

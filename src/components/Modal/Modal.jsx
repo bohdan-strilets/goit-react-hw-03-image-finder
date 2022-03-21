@@ -34,7 +34,9 @@ class Modal extends Component {
   };
 
   render() {
-    const { title, children, onClose } = this.props;
+    const { title, onClose, currentImageUrl, currentImageDescription } =
+      this.props;
+
     return createPortal(
       <div className={css.backdrop} onClick={this.handleClickBackdrop}>
         <div className={css.modal}>
@@ -44,7 +46,11 @@ class Modal extends Component {
               <BsXLg className={css.icon} />
             </button>
           </div>
-          {children}
+          <img
+            src={currentImageUrl}
+            alt={currentImageDescription}
+            loading="lazy"
+          />
         </div>
       </div>,
       modalRoot

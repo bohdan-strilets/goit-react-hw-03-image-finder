@@ -123,20 +123,18 @@ class App extends Component {
 
         {images && <ImageGallery images={images} openModal={openModal} />}
 
+        {isLoading && <Loader />}
+
         {imagesOnPage >= 12 && imagesOnPage < totalImages && (
           <Button onNextFetch={onNextFetch} />
         )}
 
-        {isLoading && <Loader />}
-
         {showModal && (
-          <Modal onClose={toggleModal} title={currentImageDescription}>
-            <img
-              src={currentImageUrl}
-              alt={currentImageDescription}
-              loading="lazy"
-            />
-          </Modal>
+          <Modal
+            onClose={toggleModal}
+            currentImageUrl={currentImageUrl}
+            currentImageDescription={currentImageDescription}
+          />
         )}
 
         <ToastContainer />

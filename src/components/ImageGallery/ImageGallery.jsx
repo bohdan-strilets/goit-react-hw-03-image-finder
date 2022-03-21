@@ -19,7 +19,14 @@ function ImageGallery({ images, openModal }) {
 }
 
 ImageGallery.prototype = {
-  images: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      description: PropTypes.string,
+      smallImage: PropTypes.string.isRequired,
+      largeImage: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default ImageGallery;

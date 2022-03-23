@@ -10,7 +10,8 @@ class Modal extends Component {
   static propTypes = {
     title: PropTypes.string,
     onClose: PropTypes.func.isRequired,
-    children: PropTypes.element,
+    currentImageUrl: PropTypes.string,
+    currentImageDescription: PropTypes.string,
   };
 
   componentDidMount() {
